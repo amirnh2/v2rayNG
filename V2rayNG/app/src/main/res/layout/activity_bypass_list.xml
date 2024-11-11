@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <LinearLayout
@@ -40,8 +39,7 @@
                         android:layout_height="wrap_content"
                         android:maxLines="2"
                         android:text="@string/title_pref_per_app_proxy"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        app:theme="@style/BrandedSwitch" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
                 </LinearLayout>
 
@@ -59,8 +57,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/switch_bypass_apps_mode"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        app:theme="@style/BrandedSwitch" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
                 </LinearLayout>
             </LinearLayout>

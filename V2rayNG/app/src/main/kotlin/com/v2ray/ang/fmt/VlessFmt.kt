@@ -65,7 +65,7 @@ object VlessFmt : FmtBase() {
     fun toOutbound(profileItem: ProfileItem): OutboundBean? {
         val outboundBean = OutboundBean.create(EConfigType.VLESS)
 
-        outboundBean?.settings?.vnext?.first()?.let { vnext ->
+        outboundBean?.settings?.vnext?.get(0)?.let { vnext ->
             vnext.address = profileItem.server.orEmpty()
             vnext.port = profileItem.serverPort.orEmpty().toInt()
             vnext.users[0].id = profileItem.password.orEmpty()
@@ -84,6 +84,8 @@ object VlessFmt : FmtBase() {
             profileItem.mode,
             profileItem.serviceName,
             profileItem.authority,
+            profileItem.uaddress,
+            profileItem.uport
         )
 
         outboundBean?.streamSettings?.populateTlsSettings(

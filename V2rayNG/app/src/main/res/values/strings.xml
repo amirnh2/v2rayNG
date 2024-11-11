@@ -296,6 +296,9 @@
     <string name="title_pref_fragment_length">Fragment Length (min-max)</string>
     <string name="title_pref_fragment_interval">Fragment Interval (min-max)</string>
     <string name="title_pref_fragment_enabled">Enable Fragment</string>
+    <string name="auth_username">Username</string>
+    <string name="auth_password">Password</string>
+    <string name="signinbtn">Sign In</string>
 
     <string-array name="share_method">
         <item>QRcode</item>
@@ -325,5 +328,8 @@
         <item>Global</item>
         <item>Iran Whitelist</item>
     </string-array>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="server_lab_request_uaddress">uaddress</string>
+    <string name="server_lab_request_uport">uport</string>
 
 </resources>

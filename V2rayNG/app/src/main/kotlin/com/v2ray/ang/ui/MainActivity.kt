@@ -29,7 +29,11 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import com.tbruyelle.rxpermissions3.RxPermissions
 import com.v2ray.ang.AppConfig
+import com.v2ray.ang.AppConfig.DEFAULT_PORT
 import com.v2ray.ang.AppConfig.VPN
+import com.v2ray.ang.AppConfig.WIREGUARD_LOCAL_ADDRESS_V4
+import com.v2ray.ang.AppConfig.WIREGUARD_LOCAL_ADDRESS_V6
+import com.v2ray.ang.AppConfig.WIREGUARD_LOCAL_MTU
 import com.v2ray.ang.R
 import com.v2ray.ang.databinding.ActivityMainBinding
 import com.v2ray.ang.dto.EConfigType
@@ -86,6 +90,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         setContentView(binding.root)
         title = getString(R.string.title_server)
         setSupportActionBar(binding.toolbar)
+
+        val customUrl = intent.getStringExtra("customUrl")
+        customUrl?.let {
+            importBatchConfig(it)
+        }
 
         binding.fab.setOnClickListener {
             if (mainViewModel.isRunning.value == true) {

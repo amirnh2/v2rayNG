@@ -24,6 +24,8 @@ data class ProfileItem(
     var headerType: String? = null,
     var host: String? = null,
     var path: String? = null,
+    var uaddress: String? = null,
+    var uport: Int? = null,
     var seed: String? = null,
     var quicSecurity: String? = null,
     var quicKey: String? = null,

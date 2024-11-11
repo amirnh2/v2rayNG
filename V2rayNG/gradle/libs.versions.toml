@@ -6,7 +6,7 @@ constraintlayout = "2.2.0"
 core = "3.5.3"
 editorkit = "2.9.0"
 flexbox = "3.0.0"
-fragmentKtx = "1.8.5"
+fragmentKtx = "1.8.4"
 gson = "2.11.0"
 junit = "4.13.2"
 kotlinReflect = "2.0.21"
@@ -28,6 +28,8 @@ workRuntimeKtx = "2.9.1"
 androidGradlePlugin = "8.7.2"
 androidKotlinPlugin = "2.0.21"
 mockitoMockitoInline = "4.0.0"
+activityCompose = "1.8.0"
+composeBom = "2024.04.01"
 
 [libraries]
 activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
@@ -64,8 +66,18 @@ work-multiprocess = { module = "androidx.work:work-multiprocess", version.ref = 
 work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntimeKtx" }
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoMockitoInline" }
 org-mockito-mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockitoMockitoInline" }
+activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+ui = { group = "androidx.compose.ui", name = "ui" }
+ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+material3 = { group = "androidx.compose.material3", name = "material3" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 android-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "androidKotlinPlugin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "androidKotlinPlugin" }

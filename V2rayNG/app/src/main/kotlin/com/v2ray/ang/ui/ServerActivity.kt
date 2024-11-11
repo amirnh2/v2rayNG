@@ -119,6 +119,10 @@ class ServerActivity : BaseActivity() {
     private val et_port_hop: EditText? by lazy { findViewById(R.id.et_port_hop) }
     private val et_port_hop_interval: EditText? by lazy { findViewById(R.id.et_port_hop_interval) }
     private val et_pinsha256: EditText? by lazy { findViewById(R.id.et_pinsha256) }
+    private val tv_uaddress: TextView? by lazy { findViewById(R.id.tv_uaddress) }
+    private val et_uaddress: EditText? by lazy { findViewById(R.id.et_uaddress) }
+    private val tv_uport: TextView? by lazy { findViewById(R.id.tv_uport) }
+    private val et_uport: EditText? by lazy { findViewById(R.id.et_uport) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -178,6 +182,18 @@ class ServerActivity : BaseActivity() {
                         else -> config?.path
                     }.orEmpty()
                 )
+                et_uaddress?.text = Utils.getEditable(
+                    when (networks[position]) {
+                        "splithttp" -> config?.uaddress
+                        else -> null
+                    }.orEmpty()
+                )
+                et_uport?.text = Utils.getEditable(
+                    when (networks[position]) {
+                        "splithttp" -> config?.uport?.toString().orEmpty()
+                        else -> null
+                    }.orEmpty()
+                )
 
                 tv_request_host?.text = Utils.getEditable(
                     getString(
@@ -208,10 +224,25 @@ class ServerActivity : BaseActivity() {
                         }
                     )
                 )
+
+                if (networks[position] == "splithttp") {
+                    tv_uaddress?.visibility = View.VISIBLE
+                    et_uaddress?.visibility = View.VISIBLE
+                    tv_uport?.visibility = View.VISIBLE
+                    et_uport?.visibility = View.VISIBLE
+                } else {
+                    tv_uaddress?.visibility = View.GONE
+                    et_uaddress?.visibility = View.GONE
+                    tv_uport?.visibility = View.GONE
+                    et_uport?.visibility = View.GONE
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                // do nothing
+                tv_uaddress?.visibility = View.GONE
+                et_uaddress?.visibility = View.GONE
+                tv_uport?.visibility = View.GONE
+                et_uport?.visibility = View.GONE
             }
         }
         sp_stream_security?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -392,6 +423,8 @@ class ServerActivity : BaseActivity() {
         sp_header_type?.setSelection(0)
         et_request_host?.text = null
         et_path?.text = null
+        et_uaddress?.text = null
+        et_uport?.text = null
         sp_stream_security?.setSelection(0)
         sp_allow_insecure?.setSelection(0)
         et_sni?.text = null
@@ -498,6 +531,8 @@ class ServerActivity : BaseActivity() {
         val type = sp_header_type?.selectedItemPosition ?: return
         val requestHost = et_request_host?.text?.toString()?.trim() ?: return
         val path = et_path?.text?.toString()?.trim() ?: return
+        val uaddress = et_uaddress?.text?.toString() ?: return
+        val uport = et_uport?.text?.toString()?.toIntOrNull() ?: return
 
         profileItem.network = networks[network]
         profileItem.headerType = transportTypes(networks[network])[type]
@@ -509,6 +544,8 @@ class ServerActivity : BaseActivity() {
         profileItem.mode = transportTypes(networks[network])[type]
         profileItem.serviceName = path
         profileItem.authority = requestHost
+        profileItem.uaddress = uaddress
+        profileItem.uport = uport
     }
 
     private fun saveTls(config: ProfileItem) {

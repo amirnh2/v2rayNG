@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:fitsSystemWindows="true"
     tools:context=".ui.SubSettingActivity">
 
     <LinearLayout
@@ -44,10 +42,9 @@
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/chk_locked"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="@string/routing_settings_locked"
-                    app:theme="@style/BrandedSwitch" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
@@ -77,10 +74,10 @@
                 <EditText
                     android:id="@+id/et_domain"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:maxLines="10"
                     android:hint="@string/routing_settings_tips"
-                    android:inputType="textMultiLine"
-                    android:maxLines="10" />
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine" />
             </LinearLayout>
 
             <LinearLayout
@@ -96,11 +93,11 @@
 
                 <EditText
                     android:id="@+id/et_ip"
+                    android:maxLines="10"
+                    android:hint="@string/routing_settings_tips"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/routing_settings_tips"
-                    android:inputType="textMultiLine"
-                    android:maxLines="10" />
+                    android:inputType="textMultiLine" />
             </LinearLayout>
 
             <LinearLayout
@@ -135,8 +132,8 @@
                 <EditText
                     android:id="@+id/et_protocol"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/edit_height"
                     android:hint="@string/routing_settings_protocol_tip"
+                    android:layout_height="@dimen/edit_height"
                     android:inputType="text" />
             </LinearLayout>
 
@@ -154,8 +151,8 @@
                 <EditText
                     android:id="@+id/et_network"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/edit_height"
                     android:hint="@string/routing_settings_network_tip"
+                    android:layout_height="@dimen/edit_height"
                     android:inputType="text" />
             </LinearLayout>
 
@@ -182,8 +179,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/layout_margin_top_height"
             android:layout_marginBottom="@dimen/layout_margin_top_height"
+            android:layout_marginTop="@dimen/layout_margin_top_height"
             android:orientation="vertical" />
 
     </LinearLayout>

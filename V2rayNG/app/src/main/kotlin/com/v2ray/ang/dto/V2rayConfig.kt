@@ -278,6 +278,8 @@ data class V2rayConfig(
             data class SplithttpSettingsBean(
                 var path: String? = null,
                 var host: String? = null,
+                var uaddress: String? = null,
+                var uport: Int? = null,
                 val maxUploadSize: Int? = null,
                 val maxConcurrentUploads: Int? = null
             )
@@ -346,7 +348,7 @@ data class V2rayConfig(
             fun populateTransportSettings(
                 transport: String, headerType: String?, host: String?, path: String?, seed: String?,
                 quicSecurity: String?, key: String?, mode: String?, serviceName: String?,
-                authority: String?
+                authority: String?, uaddress: String?, uport: Int?
             ): String? {
                 var sni: String? = null
                 network = transport
@@ -401,6 +403,8 @@ data class V2rayConfig(
                         splithttpSetting.host = host.orEmpty()
                         sni = splithttpSetting.host
                         splithttpSetting.path = path ?: "/"
+                        splithttpSetting.uaddress = uaddress.orEmpty()
+                        splithttpSetting.uport = uport
                         splithttpSettings = splithttpSetting
                     }
 
@@ -470,16 +474,16 @@ data class V2rayConfig(
             if (protocol.equals(EConfigType.VMESS.name, true)
                 || protocol.equals(EConfigType.VLESS.name, true)
             ) {
-                return settings?.vnext?.first()?.address
+                return settings?.vnext?.get(0)?.address
             } else if (protocol.equals(EConfigType.SHADOWSOCKS.name, true)
                 || protocol.equals(EConfigType.SOCKS.name, true)
                 || protocol.equals(EConfigType.HTTP.name, true)
                 || protocol.equals(EConfigType.TROJAN.name, true)
                 || protocol.equals(EConfigType.HYSTERIA2.name, true)
             ) {
-                return settings?.servers?.first()?.address
+                return settings?.servers?.get(0)?.address
             } else if (protocol.equals(EConfigType.WIREGUARD.name, true)) {
-                return settings?.peers?.first()?.endpoint?.substringBeforeLast(":")
+                return settings?.peers?.get(0)?.endpoint?.substringBeforeLast(":")
             }
             return null
         }
@@ -488,16 +492,16 @@ data class V2rayConfig(
             if (protocol.equals(EConfigType.VMESS.name, true)
                 || protocol.equals(EConfigType.VLESS.name, true)
             ) {
-                return settings?.vnext?.first()?.port
+                return settings?.vnext?.get(0)?.port
             } else if (protocol.equals(EConfigType.SHADOWSOCKS.name, true)
                 || protocol.equals(EConfigType.SOCKS.name, true)
                 || protocol.equals(EConfigType.HTTP.name, true)
                 || protocol.equals(EConfigType.TROJAN.name, true)
                 || protocol.equals(EConfigType.HYSTERIA2.name, true)
             ) {
-                return settings?.servers?.first()?.port
+                return settings?.servers?.get(0)?.port
             } else if (protocol.equals(EConfigType.WIREGUARD.name, true)) {
-                return settings?.peers?.first()?.endpoint?.substringAfterLast(":")?.toInt()
+                return settings?.peers?.get(0)?.endpoint?.substringAfterLast(":")?.toInt()
             }
             return null
         }
@@ -512,16 +516,16 @@ data class V2rayConfig(
             if (protocol.equals(EConfigType.VMESS.name, true)
                 || protocol.equals(EConfigType.VLESS.name, true)
             ) {
-                return settings?.vnext?.first()?.users?.first()?.id
+                return settings?.vnext?.get(0)?.users?.get(0)?.id
             } else if (protocol.equals(EConfigType.SHADOWSOCKS.name, true)
                 || protocol.equals(EConfigType.TROJAN.name, true)
                 || protocol.equals(EConfigType.HYSTERIA2.name, true)
             ) {
-                return settings?.servers?.first()?.password
+                return settings?.servers?.get(0)?.password
             } else if (protocol.equals(EConfigType.SOCKS.name, true)
                 || protocol.equals(EConfigType.HTTP.name, true)
             ) {
-                return settings?.servers?.first()?.users?.first()?.pass
+                return settings?.servers?.get(0)?.users?.get(0)?.pass
             } else if (protocol.equals(EConfigType.WIREGUARD.name, true)) {
                 return settings?.secretKey
             }
@@ -530,9 +534,9 @@ data class V2rayConfig(
 
         fun getSecurityEncryption(): String? {
             return when {
-                protocol.equals(EConfigType.VMESS.name, true) -> settings?.vnext?.first()?.users?.first()?.security
-                protocol.equals(EConfigType.VLESS.name, true) -> settings?.vnext?.first()?.users?.first()?.encryption
-                protocol.equals(EConfigType.SHADOWSOCKS.name, true) -> settings?.servers?.first()?.method
+                protocol.equals(EConfigType.VMESS.name, true) -> settings?.vnext?.get(0)?.users?.get(0)?.security
+                protocol.equals(EConfigType.VLESS.name, true) -> settings?.vnext?.get(0)?.users?.get(0)?.encryption
+                protocol.equals(EConfigType.SHADOWSOCKS.name, true) -> settings?.servers?.get(0)?.method
                 else -> null
             }
         }
@@ -586,7 +590,9 @@ data class V2rayConfig(
                         listOf(
                             "",
                             splithttpSetting.host,
-                            splithttpSetting.path
+                            splithttpSetting.path,
+                            splithttpSetting.uaddress,
+                            splithttpSetting.uport?.toString().orEmpty()
                         )
                     }
 

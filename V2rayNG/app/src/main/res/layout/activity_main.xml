@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
         android:orientation="vertical">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -24,7 +24,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
 
             <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:id="@+id/main_content"
@@ -38,19 +39,19 @@
 
                     <com.google.android.material.progressindicator.LinearProgressIndicator
                         android:id="@+id/pb_waiting"
+                        app:indicatorColor="@color/color_fab_active"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:indeterminate="true"
-                        android:visibility="invisible"
-                        app:indicatorColor="@color/color_fab_active" />
+                        android:visibility="invisible" />
 
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/tab_group"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:tabIndicatorFullWidth="false"
                         app:tabMode="scrollable"
-                        app:tabTextAppearance="@style/TabLayoutTextStyle" />
+                        app:tabTextAppearance="@style/TabLayoutTextStyle"
+                        app:tabIndicatorFullWidth="false"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_view"
@@ -64,11 +65,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/connection_test_height"
                         android:background="@color/colorPrimary"
+                        android:gravity="center|start"
+                        android:nextFocusRight="@+id/fab"
                         android:clickable="true"
                         android:focusable="true"
-                        android:gravity="center|start"
-                        android:nextFocusLeft="@+id/recycler_view"
-                        android:nextFocusRight="@+id/fab">
+                        android:nextFocusLeft="@+id/recycler_view">
 
                         <TextView
                             android:id="@+id/tv_test_state"
