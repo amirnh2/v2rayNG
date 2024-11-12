@@ -29,6 +29,8 @@ object VlessFmt : FmtBase() {
         config.headerType = queryParam["headerType"]
         config.host = queryParam["host"]
         config.path = queryParam["path"]
+        config.uaddress = queryParam["uaddress"]
+        config.uport = queryParam["uport"]?.toIntOrNull()
 
         config.seed = queryParam["seed"]
         config.quicSecurity = queryParam["quicSecurity"]
