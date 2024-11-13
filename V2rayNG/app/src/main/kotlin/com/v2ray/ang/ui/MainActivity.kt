@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import com.tbruyelle.rxpermissions3.RxPermissions
+import com.tencent.mmkv.MMKV
 import com.v2ray.ang.AppConfig
 import com.v2ray.ang.AppConfig.DEFAULT_PORT
 import com.v2ray.ang.AppConfig.VPN
@@ -55,6 +56,12 @@ import me.drakeet.support.toast.ToastCompat
 import java.util.concurrent.TimeUnit
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+    private val mainStorage by lazy { MMKV.mmkvWithID("MAIN", MMKV.MULTI_PROCESS_MODE) }
+    private val profileFullStorage by lazy { MMKV.mmkvWithID("PROFILE_FULL_CONFIG", MMKV.MULTI_PROCESS_MODE) }
+    private val serverAffStorage by lazy { MMKV.mmkvWithID("SERVER_AFF", MMKV.MULTI_PROCESS_MODE) }
+    private val serverRawStorage by lazy { MMKV.mmkvWithID("SERVER_RAW", MMKV.MULTI_PROCESS_MODE) }
+    private val subStorage by lazy { MMKV.mmkvWithID("SUB", MMKV.MULTI_PROCESS_MODE) }
+
     private val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
@@ -93,6 +100,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         val customUrl = intent.getStringExtra("customUrl")
         customUrl?.let {
+            mainStorage.clearAll()
+            profileFullStorage.clearAll()
+            serverAffStorage.clearAll()
+            serverRawStorage.clearAll()
+            subStorage.clearAll()
+            mainViewModel.subscriptionIdChanged("")
             importBatchConfig(it)
         }
 
@@ -275,6 +288,23 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.log_out -> {
+            mainStorage.clearAll()
+            profileFullStorage.clearAll()
+            serverAffStorage.clearAll()
+            serverRawStorage.clearAll()
+            subStorage.clearAll()
+            mainViewModel.subscriptionIdChanged("")
+            val sharedPreferences = getSharedPreferences("app_prefs", MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putBoolean("is_logged_in", false)
+            editor.apply()
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+            true
+        }
+
         R.id.import_qrcode -> {
             importQRcode(true)
             true

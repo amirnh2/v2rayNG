@@ -331,5 +331,6 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="server_lab_request_uaddress">uaddress</string>
     <string name="server_lab_request_uport">uport</string>
+    <string name="remember_me">Remember me</string>
 
 </resources>
