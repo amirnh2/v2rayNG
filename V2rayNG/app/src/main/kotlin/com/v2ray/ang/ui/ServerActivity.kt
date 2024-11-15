@@ -531,8 +531,8 @@ class ServerActivity : BaseActivity() {
         val type = sp_header_type?.selectedItemPosition ?: return
         val requestHost = et_request_host?.text?.toString()?.trim() ?: return
         val path = et_path?.text?.toString()?.trim() ?: return
-        val uaddress = et_uaddress?.text?.toString() ?: return
-        val uport = et_uport?.text?.toString()?.toIntOrNull() ?: return
+        val uaddress = et_uaddress?.text?.toString()
+        val uport = et_uport?.text?.toString()?.toIntOrNull()
 
         profileItem.network = networks[network]
         profileItem.headerType = transportTypes(networks[network])[type]
