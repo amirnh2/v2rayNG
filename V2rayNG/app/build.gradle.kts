@@ -5,15 +5,15 @@ plugins {
 }
 
 android {
-    namespace = "com.v2ray.ang"
+    namespace = "com.pix2ray.ang"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.v2ray.ang"
+        applicationId = "com.pix2ray.ang"
         minSdk = 21
         targetSdk = 35
         versionCode = 610
-        versionName = "1.9.14"
+        versionName = "pix-1.9.14"
         multiDexEnabled = true
         splits {
             abi {
@@ -67,7 +67,7 @@ android {
                 else
                     "universal"
 
-                output.outputFileName = "v2rayNG_${variant.versionName}_${abi}.apk"
+                output.outputFileName = "pix2rayNG_${variant.versionName}_${abi}.apk"
                 if (versionCodes.containsKey(abi)) {
                     output.versionCodeOverride = (1000000 * versionCodes[abi]!!).plus(variant.versionCode)
                 } else {
